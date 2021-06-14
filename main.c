@@ -1,38 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
-int pw(int s,int r)
+int uzunluk(char *d)
 {
-    int i=0,pw=1;
-    for(i=0;i<r;i++)
-        pw=pw*s;
-    return pw;
-}
-void armstrong(int *ptr)
-{
-    int x,arms=0,gec,say=0;
-    gec=*ptr;
-    while(gec!=0)
+    int i,a=0;
+    for(i=0;d[i]!='\0';i++)
     {
-        gec=gec/10;
-        say++;
+        if(d[i]!=' ')
+            a++;
     }
-    gec=*ptr;
-      while(gec!=0)
-    {
-        x=gec%10;
-        arms=arms+pw(x,say);
-        gec=gec/10;
-    }
-    if(arms==*ptr)
-        printf("\n%d sayisi armstrong sayidir",*ptr);
-    else
-        printf("\n%d sayisi armstrong degildir",*ptr);
+    return a-1;
 }
 int main()
 {
-    int say;
-    printf("Bir sayi giriniz:");
-    scanf("%d",&say);
-    armstrong(&say);
+    char d[50],*pnt;
+    int i,a=0,b;
+    pnt=&d[0];
+    int sesli,sessiz;
+    printf("String giriniz:");
+    fgets(d,50,stdin);
+    b=uzunluk(d);
+    printf("\nUzunluk:%d",b);
+    for(i=0;pnt[i]!='\0';i++)
+    {
+        if(pnt[i]=='a' || pnt[i]=='A'|| pnt[i]=='e' || pnt[i]=='E' || pnt[i]=='o' || pnt[i]=='O' || pnt[i]=='i' || pnt[i]=='I' || pnt[i]=='u' || pnt[i]=='U')
+            a++;
+    }
+    sesli=a;
+    sessiz=b-a;
+    printf("\nSesli harf sayisi:%d",sesli);
+    printf("\nSessiz harf sayisi:%d",sessiz);
     return 0;
 }
