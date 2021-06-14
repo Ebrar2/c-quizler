@@ -1,62 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct DTarih
-{
-   int gun;
-   int ay;
-   int yil;
- };
-struct sahis_bilgileri
-{
-   char Ad[50];
-  struct DTarih dogum_tarihi;
- };
- struct sahis_bilgileri Enb(struct sahis_bilgileri x[],int n)
- {
-    struct sahis_bilgileri a;
-    struct sahis_bilgileri enb;
-    int i,j;
-    enb=x[i];
-    for(i=0;i<n;i++)
-    {
-        for(j=i+1;j<n;j++)
-      {
-        if(enb.dogum_tarihi.yil>x[j].dogum_tarihi.yil)
-             enb=x[j];
-       else if(enb.dogum_tarihi.yil==x[j].dogum_tarihi.yil && enb.dogum_tarihi.ay>x[j].dogum_tarihi.ay)
-        enb=x[j];
-       else if(enb.dogum_tarihi.yil==enb.dogum_tarihi.yil && enb.dogum_tarihi.ay==x[j].dogum_tarihi.ay && enb.dogum_tarihi.gun>x[j].dogum_tarihi.gun)
-       enb=x[j];
-      }
-    }
-    return enb;
- };
+#include<ctype.h>
+#include<string.h>
 int main()
 {
-    int n,i;
-    printf("Kisi sayisini giriniz:");
-    scanf("%d",&n);
-    struct sahis_bilgileri x1[n];
-    struct sahis_bilgileri enB;
-    printf("\nBilgieri giriniz:\n");
-    for(i=0;i<n;i++)
+    FILE *dosya=fopen("test.txt","r");
+    if(dosya==NULL)
     {
-        printf("\nAdi:");
-        scanf("%s",&x1[i].Ad);
-        printf("\nDogdugu gun:");
-        scanf("%d",&x1[i].dogum_tarihi.gun);
-        printf("\nDogdugu ay:");
-        scanf("%d",&x1[i].dogum_tarihi.ay);
-        printf("\nDogdugu yil:");
-        scanf("%d",&x1[i].dogum_tarihi.yil);
+        printf("Dosya acilamadi");
+        exit(1);
     }
-    printf("\n\nKayitlar yazdirilyor...\n");
-    for(i=0;i<n;i++)
+    int i=0,j=0,a=0,d[100],gec=0,say=0;
+    char x[100];
+    while(fgets(x,100,dosya)!=NULL)
     {
-        printf("Ad:%s\n",x1[i].Ad);
-        printf("Dogum tarihi:%d.%d.%d\n",x1[i].dogum_tarihi.gun,x1[i].dogum_tarihi.ay,x1[i].dogum_tarihi.yil);
+        printf("%s\n",x);
+        for(i=0;x[i]!='\0';i++)
+        {
+            if(isdigit(x[i]))
+            {
+               // printf("\natoi:%d\n",atoi(x+i));
+                d[a]=atoi(x+i);
+                //printf("d[a]:%d\n",d[a]);
+                gec=d[a];
+                say=0;
+                while(gec!=0)
+                    {
+                        gec=gec/10;
+                        say++;
+
+                    }
+                if(say!=1)
+                  {
+                    a++;
+                    i=say+i-1;
+                  }
+            }
+        }
     }
-    enB=Enb(x1,n);
-    printf("\n\nYasi en buyuk kisi:%s %d.%d.%d",enB.Ad,enB.dogum_tarihi.gun,enB.dogum_tarihi.ay,enB.dogum_tarihi.yil);
+    j=a;
+    printf("\n\ndizi\n");
+    for(i=0;i!=j;i++)
+        printf("%d ",d[i]);
+    fclose(dosya);
     return 0;
 }
