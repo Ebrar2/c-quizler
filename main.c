@@ -1,33 +1,57 @@
 #include <stdio.h>
 #include <stdlib.h>
-int uzunluk(char *d)
+#include<ctype.h>
+#include<math.h>
+void SayiBul(char k[100],int d[100],int *n)
 {
-    int i,a=0;
-    for(i=0;d[i]!='\0';i++)
+    int i,say=0,gec,a=0;
+    int top=0;
+    int d2[100]={-1};
+    for(i=0;k[i]!='\0';i++)
     {
-        if(d[i]!=' ')
-            a++;
+        a=0;
+        if(isdigit(k[i]))
+        {
+            d[say]=atoi(k+i);
+            gec=d[say];
+            while(gec!=0)
+            {
+                 gec=gec/10;
+                 a++;
+            }
+            i=i+a-1;
+            say++;
+        }
     }
-    return a-1;
+    *n=say;
+}
+void SayiSirala(int d[],int n)
+{
+    int i=0,j,gec;
+    for(i=0;i<n;i++)
+    {
+        for(j=i+1;j<n;j++)
+        {
+            if(d[i]<d[j])
+            {
+                gec=d[i];
+                d[i]=d[j];
+                d[j]=gec;
+            }
+        }
+    }
 }
 int main()
 {
-    char d[50],*pnt;
-    int i,a=0,b;
-    pnt=&d[0];
-    int sesli,sessiz;
-    printf("String giriniz:");
-    fgets(d,50,stdin);
-    b=uzunluk(d);
-    printf("\nUzunluk:%d",b);
-    for(i=0;pnt[i]!='\0';i++)
-    {
-        if(pnt[i]=='a' || pnt[i]=='A'|| pnt[i]=='e' || pnt[i]=='E' || pnt[i]=='o' || pnt[i]=='O' || pnt[i]=='i' || pnt[i]=='I' || pnt[i]=='u' || pnt[i]=='U')
-            a++;
-    }
-    sesli=a;
-    sessiz=b-a;
-    printf("\nSesli harf sayisi:%d",sesli);
-    printf("\nSessiz harf sayisi:%d",sessiz);
+    char k[100];
+    int i,n;
+    int d[100]={0};
+    printf("Input:");
+    fgets(k,100,stdin);
+    SayiBul(k,d,&n);
+    SayiSirala(d,n);
+    printf("\n\nSiralanmis sayilar:\n");
+    for(i=0;i<n;i++)
+        printf("%d\n",d[i]);
     return 0;
 }
