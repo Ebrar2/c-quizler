@@ -1,40 +1,38 @@
-
 #include <stdio.h>
 #include <stdlib.h>
-#include<time.h>
+int pw(int s,int r)
+{
+    int i=0,pw=1;
+    for(i=0;i<r;i++)
+        pw=pw*s;
+    return pw;
+}
+void armstrong(int *ptr)
+{
+    int x,arms=0,gec,say=0;
+    gec=*ptr;
+    while(gec!=0)
+    {
+        gec=gec/10;
+        say++;
+    }
+    gec=*ptr;
+      while(gec!=0)
+    {
+        x=gec%10;
+        arms=arms+pw(x,say);
+        gec=gec/10;
+    }
+    if(arms==*ptr)
+        printf("\n%d sayisi armstrong sayidir",*ptr);
+    else
+        printf("\n%d sayisi armstrong degildir",*ptr);
+}
 int main()
 {
-     int n,i,j,gec;
-     printf("\nMatrisin boyutunu giriniz:");
-     scanf("%d",&n);
-     int d[n][n];
-     srand(time(NULL));
-     for(i=0;i<n;i++)
-     {
-         for(j=0;j<n;j++)
-            d[i][j]=rand()%10;
-     }
-     printf("\n\nRastgele eleman atanan dizi:\n");
-     for(i=0;i<n;i++)
-     {
-         for(j=0;j<n;j++)
-            printf("%d ",d[i][j]);
-        printf("\n");
-     }
-
-     for(i=0;i<n;i++)
-     {
-             gec=d[i][i];
-             d[i][i]=d[i][n-1-i];
-            d[i][n-1-i]=gec;
-     }
-
-     printf("\n\nGuncel matris(Kosegenleri degisti):\n");
-     for(i=0;i<n;i++)
-     {
-         for(j=0;j<n;j++)
-            printf("%d ",d[i][j]);
-         printf("\n");
-     }
+    int say;
+    printf("Bir sayi giriniz:");
+    scanf("%d",&say);
+    armstrong(&say);
     return 0;
 }
