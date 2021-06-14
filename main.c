@@ -1,29 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-//EBRAR TEMEL 20020105
+//EBRAR TEMEL 200201085
+void xParseSeconds (int seconds);
 int main()
-
 {
-    //kurenin alaný
-    float p = 3.14;
-    int r;
-    float alan;
-    printf("Kurenin r sini giriniz= ");
-    scanf("%d", &r);
-
-    alan=(4*p*r*r);
-    printf("Kurenin yuzey alani %.2f birim  \n", alan );
-
-    //kupun alaný
-    int e;
-    int kup;
-    printf("Kupun e sini giriniz = ");
-    scanf("%d" , &e);
-    kup=(6*e*e);
-    printf("Kupun yuzey  alani  %d  \n" , kup );
-
-
-
-
+    int saniye;
+    printf("Saniye bilgisini giriniz:");
+    scanf("%d",&saniye);
+    xParseSeconds(saniye);
     return 0;
+}
+void xParseSeconds (int seconds)
+{
+    int san,saat,dk;
+    saat=seconds/3600;
+    dk=(seconds-saat*3600)/60;
+    san=(seconds-(saat*3600+dk*60));
+    printf("%d saat %d dakika %d saniye",saat,dk,san);
+
 }
