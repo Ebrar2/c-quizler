@@ -1,35 +1,40 @@
+
 #include <stdio.h>
 #include <stdlib.h>
-float getCap(float r);
-float getCemberCevre(float r,float pi);
-float getCemberAlan(float r,float pi);
+#include<time.h>
 int main()
 {
-    float pi=3.14;
-    float r;
-    printf("Cemberin yaricapini giriniz:");
-    scanf("%f",&r);
-    printf("\nCemberin capi:%.2f",getCap(r));
-    printf("\nCemberin cevresi:%.2f",getCemberCevre(r,pi));
-    printf("\nCemberin alani:%.2f",getCemberAlan(r,pi));
+     int n,i,j,gec;
+     printf("\nMatrisin boyutunu giriniz:");
+     scanf("%d",&n);
+     int d[n][n];
+     srand(time(NULL));
+     for(i=0;i<n;i++)
+     {
+         for(j=0;j<n;j++)
+            d[i][j]=rand()%10;
+     }
+     printf("\n\nRastgele eleman atanan dizi:\n");
+     for(i=0;i<n;i++)
+     {
+         for(j=0;j<n;j++)
+            printf("%d ",d[i][j]);
+        printf("\n");
+     }
 
+     for(i=0;i<n;i++)
+     {
+             gec=d[i][i];
+             d[i][i]=d[i][n-1-i];
+            d[i][n-1-i]=gec;
+     }
+
+     printf("\n\nGuncel matris(Kosegenleri degisti):\n");
+     for(i=0;i<n;i++)
+     {
+         for(j=0;j<n;j++)
+            printf("%d ",d[i][j]);
+         printf("\n");
+     }
     return 0;
-}
-float getCap(float r)
-{
-    float cap;
-    cap=2*r;
-    return cap;
-}
-float getCemberCevre(float r,float pi)
-{
-    float cevre;
-    cevre=2*pi*r;
-    return cevre;
-}
-float getCemberAlan(float r,float pi)
-{
-    float alan;
-    alan=pi*r*r;
-    return alan;
 }
