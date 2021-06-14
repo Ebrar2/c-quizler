@@ -2,33 +2,49 @@
 #include <stdlib.h>
 #include<string.h>
 #include<ctype.h>
-void print_array(const char arr[][100])
+int AracBilgiAl(char d[][100])
 {
-     int i,j,x=0;
-     for(i=0;i<5;i++)
+    char *k;
+    int i=0;
+     do
      {
-         x=0;
-         for(j=strlen(arr[i])-1;j>-1;j--)
-             {
-                  printf("%c",arr[i][j]);
-             }
-             printf(" uzunluk:%d\n",strlen(arr[i]));
+         fgets(d[i],100,stdin);
+         fflush(stdin);
+         k=strstr(d[i],"END");
+         i++;
      }
+    while(k==NULL);
+    for(int j=0;j<i;j++)
+        printf("\n%s",d[j]);
+    return i-1;
+}
+int DogruGirisListele(char d[50][100],int x)
+{
+    int i,say=0,gec=0,uretimY;
+    float benzin;
+    char *k,*a,marka[10];
+     for(i=0;i<x;i++)
+       {
+           gec=0;
+         k=strstr(d[i]," ");
+       while(k!=NULL)
+      {
+           gec++;
+          k=strstr(k+1," ");
+       }
+       strcpy(marka,strtok(d[i]," "));
+       uretimY=atoi(strtok(NULL," "));
+       benzin=atof((strtok(NULL," ")));
+       if(gec==2 && uretimY!=0 && benzin!=0.0)
+         printf("%20s %-10d %.1f\n",marka,uretimY,benzin);
+    }
+
 }
 int main()
 {
-    int i;
-    char d[5][100]={"Bilgisayar Muhendisligi Bilgisayar Laboratuvari",
-              "Birinci Sinif",
-              "String cumlelerin uzunluk toplamini bulun.",
-              "sureniz yetmis bes dakika",
-              "soruyu dikkatli okuyun!"};
-    printf("Ilk Cumleler:\n");
-   for(i=0;i<5;i++)
-      printf(" '%s'  uzunluk:%d\n",d[i],strlen(d+i));
-     printf("\n\nTers Cevrilmis Hali:\n");
-    print_array(d);
-
-
+     char d[50][100];
+     int i=0;
+     i=AracBilgiAl(d);
+     DogruGirisListele(d,i);
     return 0;
 }
